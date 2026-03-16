@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "3000:80"
+    environment:
+      - PORT=80
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+    networks:
+      - config-store-network
+
+networks:
+  config-store-network:
