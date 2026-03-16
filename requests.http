@@ -1,0 +1,28 @@
+POST http://localhost:3000/api/kv HTTP/1.1
+Content-Type: application/json
+
+{
+    "key": "primary",
+    "value": "blue"
+}
+
+###
+
+GET http://localhost:3000/api/kv/primary HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/kv HTTP/1.1
+
+###
+
+PUT http://localhost:3000/api/kv/primary HTTP/1.1
+Content-Type: application/json
+
+{
+    "value": "yellow"
+}
+
+###
+
+DELETE http://localhost:3000/api/kv/primary HTTP/1.1

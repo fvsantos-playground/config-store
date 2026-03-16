@@ -7,13 +7,32 @@ services:
       - "3000:80"
     environment:
       - PORT=80
+      - DB_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
     develop:
       watch:
         - action: sync
           path: ./src
           target: /app/src
+    depends_on:
+      - db
+    networks:
+      - config-store-network
+
+  db:
+    image: postgres:17.1
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - type: volume
+        source: postgres-data
+        target: /var/lib/postgresql/data
     networks:
       - config-store-network
 
 networks:
   config-store-network:
+
+volumes:
+  postgres-data:
